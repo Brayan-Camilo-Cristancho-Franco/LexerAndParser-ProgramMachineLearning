@@ -1,0 +1,59 @@
+﻿TIPS PARA COSTRUIR UNA GRAMÁTICA
+
+G= (T, NT, N, P)
+
+1. Identifique el alfabeto de terminales.
+2. Identifique el axioma --> La estructura más general.
+3. Identifique las reglas de producción.
+   3.1. Uno o varios -> utilice recursividad. ( U ::= xUY)
+   3.2. Defina estructuras simples.
+
+T = {Model_Name,Model_Family,:,FREE_TEXT,{,},[,],CLASSIFIER,ANN,Model_Description,Model_Type,REGRESSION,CLUSTERING,ANN,Tree,RandomForrest,SVM,DecisionTree,Inputs,Input,Input_Name,Input_Type,NUMBER,CATEGORICAL,BINARY,Outputs,Output,Output_Name,Ouput_Type,Model,Layers,Layer,Layer_Name,Layer_Params,',',.,}
+
+NT = {<MLDocument>,<Head>,<NameModel>,<FamilyModel>,<TypeModel>,<DescriptionModel>,<A>,<InputValue>,<NameInput>,<TypeInput>,<B>,<OutputValue>,<NameOutput>      ,<InputsStatement>,<InputsBody>,<InputBody>,<OuputsStatement>,<OuputBody>,<OuputsBody>,<ModelStatement>,<ModelBody>,<LayersStatement>,<TypeOutput> <LayersBody>,<C>,<LayerValue>,<LayerBody>,<NameLayer>,<ParamsLayer>,<Params>,<D>}
+
+S = <MLDocument>
+
+// LL1 GRAMMAR:
+P=
+   
+         <MLDocument>        ::=<Head><InputsStatement><OuputsStatement><ModelStatement>
+         <Head>              ::=<NameModel><FamilyModel><TypeModel><DescriptionModel>
+         <NameModel>         ::='Model_Name'':'<TEXT>
+         <FamilyModel>       ::='Model_Family'':'<FamilyValues>
+         <TypeModel>         ::='Model_Type'':'<TypeValues> 
+         <DescriptionModel>  ::='Model_Description'':'<TEXT>
+ 
+         <InputsStatement>   ::='Inputs''{'<InputsBody>'}'
+         <InputsBody>        ::=<InputValue><A>
+         <A>                 ::=<InputsBody>|Epsilon
+         <InputValue>        ::='Input''{'<InputBody>'}'
+         <InputBody>         ::=<NameInput><TypeInput>
+         <NameInput>         ::='Input_Name'':'<TEXT> 
+         <TypeInput>         ::='Input_Type'':'<TypeInputValues> 
+         
+         <OutputsStatement>  ::='Outputs''{'<OutputsBody>'}'
+         <OutputsBody>        ::=<OutputValue><B>
+         <B>                 ::=<OutputsBody>|Epsilon
+         <OutputValue>       ::='Output''{'<OutputBody>'}'
+         <OutputBody>        ::=<NameOutput><TypeOutput>
+         <NameOutput>        ::='Output_Name'':'<TEXT> 
+         <TypeOutput>        ::='Output_Type'':'<TypeOutputValues>
+
+         <ModelStatement>    ::='Model''{'<ModelBody>'}'
+         <ModelBody>         ::=<LayersStatement>
+         <LayersStatement>   ::='Layers''{'<LayersBody>'}'
+         <LayersBody>        ::=<LayerValue><C>
+         <C>                 ::=<LayersBody>|Epsilon
+         <LayerValue>        ::='Layer''{'LayerBody'}'
+         <LayerBody>         ::=<NameLayer><ParamsLayer>
+         <NameLayer>         ::='Layer_Name'':'<TEXT>
+         <ParamsLayer>       ::='Layer_Params'':''['<Params>']'
+         <Params>            ::=<NUMBERS><D>
+         <D>                 ::=','<Params>|Epsilon
+              
+         <TypeOutputValues>  ::=NUMBER|CATEGORICAL|BINARY
+         <TypeInputValues>   ::=NUMBER|CATEGORICAL|BINARY
+         <FamilyValues>      ::=CLASSIFIER|REGRESSION|CLUSTERING
+         <TypeValues>        ::=ANN|Tree|RandomForrest|SVM|DecisionTree
+        

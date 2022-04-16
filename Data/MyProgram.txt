@@ -1,0 +1,47 @@
+#Use ‘#’ for comments
+
+#Model_Name and Model_Type are mandatory
+Model_Name: "Cat or Dog Classifier" #Free text
+Model_Family: CLASSIFIER #REGRESSION, CLUSTERING
+Model_Type: ANN #ANN, Tree, RandomForrest, SVM, DecisionTree
+Model_Description: "A model to classify dogs and cats." #Free text
+
+#The "Inputs" tag can contain multiple "Input" tags.
+Inputs{
+ Input{
+   Input_Name: "Input1" #Free text
+   Input_Type: NUMBER #NUMBER, CATEGORICAL, BINARY
+ }
+ Input{
+   Input_Name: "Input2"
+   Input_Type: NUMBER
+ }
+}
+
+#The "Outputs" tag can contain multiple "Output" tags.
+Outputs{
+  Output{
+   Output_Name: "Output1" #Free text
+   Output_Type: CATEGORICAL #NUMBER, CATEGORICAL, BINARY
+ }
+ Output{
+   Output_Name: "Output1"
+   Output_Type: CATEGORICAL
+ }
+}
+
+#The "Model" tag can contain multiple "Layers" tags.
+Model{
+#The "Layers" tag can contain multiple "Layer" tags.
+
+  Layers{
+    Layer{
+      Layer_Name: "Layer1" 
+      Layer_Params: [6,8.9,7.8] #Parameters are numbers
+    }
+    Layer{
+      Layer_Name: "Layer2" #Free text
+      Layer_Params: [7,9,12] #Parameters are numbers
+    }
+  }
+}
